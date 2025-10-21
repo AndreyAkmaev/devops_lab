@@ -1,0 +1,27 @@
+stages:
+    -  stage_build
+    -  stage_test
+    -  stage_deploy
+
+build_job:
+    stage: stage_build
+    script:
+        - echo "---Build_startied--"
+        - docker compose build
+        - echo "---Build_completed--"
+
+test_job:
+    stage: stage_test
+    script:
+        - echo "---Test_startied--"
+        - echo "---Test_completed--"
+deploy_job:
+    stage: stage_deploy
+    script:
+        - echo "--Deploy_Startied--"
+        - docker compose up
+        - echo "--Deploy_Completed--"
+
+
+
+
