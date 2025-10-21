@@ -9,18 +9,24 @@ build_job:
         - echo "---Build_startied--"
         - docker compose build
         - echo "---Build_completed--"
+    tags:
+        - python
 
 test_job:
     stage: stage_test
     script:
         - echo "---Test_startied--"
         - echo "---Test_completed--"
+    tags:
+        - python
 deploy_job:
     stage: stage_deploy
     script:
         - echo "--Deploy_Startied--"
         - docker compose up
         - echo "--Deploy_Completed--"
+    tags:
+        - python
 
 
 
