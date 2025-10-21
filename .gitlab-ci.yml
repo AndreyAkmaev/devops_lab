@@ -23,7 +23,7 @@ deploy_job:
     stage: stage_deploy
     script:
         - echo "--Deploy_Startied--"
-        - docker compose up
+        - docker compose up -d
         - echo "--Deploy_Completed--"
     tags:
         - python
