@@ -33,7 +33,7 @@ test_job:
 deploy_job_dev:
     stage: stage_deploy_dev
     rules:
-        - if $CI_COMMIT_BRANCH == "dev"
+        - if: $CI_COMMIT_BRANCH == "dev"
     script:
         - echo "--Deploy_Startied--" >> $LOG_FILE
         - docker compose up -d >> $LOG_FILE 2>&1
@@ -44,7 +44,7 @@ deploy_job_dev:
 deploy_job_prd:
     stage: stage_deploy_prd
     rules:
-        - if $CI_COMMIT_BRANCH == "main"
+        - if: $CI_COMMIT_BRANCH == "main"
     script:
         - echo "--Deploy_Startied--" >> $LOG_FILE
         - docker compose up -d >> $LOG_FILE 2>&1
