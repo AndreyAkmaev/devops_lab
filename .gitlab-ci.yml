@@ -1,7 +1,8 @@
 stages:
     -  stage_build
     -  stage_test
-    -  stage_deploy
+    -  stage_deploy_dev
+    -  stage_deploy_prd
 
 variables:
   LOG_FILE: log.txt
@@ -11,7 +12,6 @@ default:
       paths:
           - $LOG_FILE
       
-
 build_job:
     stage: stage_build
     script:
@@ -30,15 +30,27 @@ test_job:
     tags:
           - python
   
-deploy_job:
-    stage: stage_deploy
+deploy_job_dev:
+    stage: stage_deploy_dev
+    rules:
+        - if $CI_COMMIT_BRANCH == "dev"
     script:
         - echo "--Deploy_Startied--" >> $LOG_FILE
         - docker compose up -d >> $LOG_FILE 2>&1
         - echo "--Deploy_Completed--"  >> $LOG_FILE
     tags:
           - python
-    
+
+deploy_job_prd:
+    stage: stage_deploy_prd
+    rules:
+        - if $CI_COMMIT_BRANCH == "main"
+    script:
+        - echo "--Deploy_Startied--" >> $LOG_FILE
+        - docker compose up -d >> $LOG_FILE 2>&1
+        - echo "--Deploy_Completed--"  >> $LOG_FILE
+    tags:
+          - python
 
 
 
