@@ -23,7 +23,7 @@ test_job:
         - echo "---Test_startied--" >> $LOG_FILE
         - pytest >> $LOG_FILE 2>&1
         - echo "---Test_completed--" >> $LOG_FILE
-    arifacts:
+    artifacts:
       paths:
           - $LOG_FILE
     tags:
