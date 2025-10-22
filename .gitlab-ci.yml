@@ -2,29 +2,38 @@ stages:
     -  stage_build
     -  stage_test
     -  stage_deploy
+variables:
+  LOG_FILE: log.txt
 
 build_job:
     stage: stage_build
     script:
-        - echo "---Build_startied--"
-        - docker compose build
-        - echo "---Build_completed--"
+        - echo "---Build_startied--" >> $LOG_FILE
+        - docker compose build >> $LOG_FILE 2>&1
+        - echo "---Build_completed--" >> $LOG_FILE
+    artifacts:
+      paths:
+          - $LOG_FILE
     tags:
         - python
 
 test_job:
     stage: stage_test
     script:
-        - echo "---Test_startied--"
-        - echo "---Test_completed--"
+        - echo "---Test_startied--" >> $LOG_FILE
+        - pytest >> $LOG_FILE 2>&1
+        - echo "---Test_completed--" >> $LOG_FILE
+    arifacts:
+      paths:
+          - $LOG_FILE
     tags:
         - python
 deploy_job:
     stage: stage_deploy
     script:
-        - echo "--Deploy_Startied--"
-        - docker compose up -d
-        - echo "--Deploy_Completed--"
+        - echo "--Deploy_Startied--" >> $LOG_FILE
+        - docker compose up -d >> $LOG_FILE 2>&1
+        - echo "--Deploy_Completed--"  >> $LOG_FILE
     tags:
         - python
 
