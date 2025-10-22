@@ -10,8 +10,7 @@ default:
   artifacts:
       paths:
           - $LOG_FILE
-      tags:
-          - python
+      
 
 build_job:
     stage: stage_build
@@ -19,6 +18,8 @@ build_job:
         - echo "---Build_startied--" >> $LOG_FILE
         - docker compose build >> $LOG_FILE 2>&1
         - echo "---Build_completed--" >> $LOG_FILE
+    tags:
+          - python
     
 test_job:
     stage: stage_test
@@ -26,6 +27,8 @@ test_job:
         - echo "---Test_startied--" >> $LOG_FILE
        
         - echo "---Test_completed--" >> $LOG_FILE
+    tags:
+          - python
   
 deploy_job:
     stage: stage_deploy
@@ -33,6 +36,8 @@ deploy_job:
         - echo "--Deploy_Startied--" >> $LOG_FILE
         - docker compose up -d >> $LOG_FILE 2>&1
         - echo "--Deploy_Completed--"  >> $LOG_FILE
+    tags:
+          - python
     
 
 
