@@ -1,6 +1,10 @@
 services:
-
   python:
     build: .
-    ports: 
+    command: python ./main.py
+    ports:
       - 8081:5000
+
+  tests:
+    build: .
+    command: pytest -v tests

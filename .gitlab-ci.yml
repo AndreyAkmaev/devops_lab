@@ -25,6 +25,7 @@ test_job:
     stage: stage_test
     script:
         - echo "---Test_startied--" >> $LOG_FILE
+        - docker compose run -rm tests  >> $LOG_FILE 2>&1
        
         - echo "---Test_completed--" >> $LOG_FILE
     tags:
@@ -36,7 +37,7 @@ deploy_job_dev:
         - if: $CI_COMMIT_BRANCH == "dev"
     script:
         - echo "--Deploy_Startied--" >> $LOG_FILE
-        - docker compose up -d >> $LOG_FILE 2>&1
+        - docker compose up -d python >> $LOG_FILE 2>&1
         - echo "--Deploy_Completed--"  >> $LOG_FILE
     tags:
           - python
@@ -47,7 +48,7 @@ deploy_job_prd:
         - if: $CI_COMMIT_BRANCH == "main"
     script:
         - echo "--Deploy_Startied--" >> $LOG_FILE
-        - docker compose up -d >> $LOG_FILE 2>&1
+        - docker compose up -d python >> $LOG_FILE 2>&1
         - echo "--Deploy_Completed--"  >> $LOG_FILE
     tags:
           - python
