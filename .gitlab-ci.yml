@@ -25,7 +25,7 @@ test_job:
     stage: stage_test
     script:
         - echo "---Test_startied--" >> $LOG_FILE
-        - docker compose run -rm tests  >> $LOG_FILE 2>&1
+        - docker compose run --rm tests  >> $LOG_FILE 2>&1
        
         - echo "---Test_completed--" >> $LOG_FILE
     tags:
