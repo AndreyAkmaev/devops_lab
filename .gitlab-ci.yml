@@ -48,7 +48,7 @@ deploy_job_prd:
         - if: $CI_COMMIT_BRANCH == "main"
     script:
         - echo "--Deploy_Startied--" >> $LOG_FILE
-        - docker compose up -d python >> $LOG_FILE 2>&1
+        - ansible-playbook -i Ansible/hosts Ansible/publish_prod.yml >> $LOG_FILE 2>&1
         - echo "--Deploy_Completed--"  >> $LOG_FILE
     tags:
           - python
