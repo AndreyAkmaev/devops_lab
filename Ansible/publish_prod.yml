@@ -1,0 +1,52 @@
+
+
+- name: Export docker image locally
+
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Export docker image to tarball
+      community.docker.docker_image_export:
+        names:
+          - devops_lab_python:latest
+        path: /tmp/devops_lab_python.tar.gz
+
+
+- name: Copy docker image archive to remote hosts
+
+  hosts: all
+  become: yes
+  tasks:
+    - name: Copy archive
+      copy:
+        src: /tmp/devops_lab_python.tar.gz
+        dest: /tmp/devops_lab_python.tar.gz
+
+    - name: Остановить и удалить старый контейнер
+      community.docker.docker_container:
+        name: devops_lab_python
+        state: absent
+        
+    - name: Delete image
+      community.docker.docker_image:
+        name: devops_lab_python
+        state: absent
+
+    - name: Import docker image on remote hosts
+      community.docker.docker_image:
+        name: devops_lab_python
+        load_path: /tmp/devops_lab_python.tar.gz
+        source: load
+
+    
+
+    - name: Запустить контейнер из нового образа
+      community.docker.docker_container:
+        name: devops_lab_python
+        image: devops_lab_python:latest
+        state: started
+        ports:
+          - "8081:5000"
+        command: python ./main.py 
+        interactive: true
+

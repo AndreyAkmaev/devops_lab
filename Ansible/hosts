@@ -1,0 +1,2 @@
+[prod]
+client01 ansible_host=192.168.68.59 ansible_user=andrey ansible_password=123lit517 ansible_become=yes ansible_become_pass=123lit517
